@@ -18,25 +18,17 @@ class AlertPopupFormField extends StatefulWidget {
 }
 
 class _AlertPopupFormFieldState extends State<AlertPopupFormField> {
+  // VARIABLES
+  //
   TextEditingController usernameController = TextEditingController();
-  bool isValidated = false;
+  final formKey = GlobalKey<FormState>();
 
-  @override
-  void initState() {
-    super.initState();
-    usernameController.addListener(_updateValidation);
-  }
-
+  // Funtions
+  //
   @override
   void dispose() {
     usernameController.dispose();
     super.dispose();
-  }
-
-  void _updateValidation() {
-    setState(() {
-      isValidated = usernameController.text.isNotEmpty;
-    });
   }
 
   @override
@@ -45,16 +37,15 @@ class _AlertPopupFormFieldState extends State<AlertPopupFormField> {
     //
     Widget enterButton = TextButton(
       onPressed: () {
-        if (isValidated) {
+        if (formKey.currentState!.validate()) {
           Navigator.of(context).pop();
           Navigator.of(context)
               .push(MaterialPageRoute(builder: (context) => ChatPage()));
-        } else {
-          return;
         }
       },
       child: Text('Enter'),
     );
+
     // CANCEL BUTTON
     //
     Widget cancelButton = TextButton(
@@ -63,15 +54,24 @@ class _AlertPopupFormFieldState extends State<AlertPopupFormField> {
       },
       child: Text('Cancel'),
     );
+
     // ALERT POPUP
     //
     return AlertDialog(
       title: Text(widget.popupTitle),
-      content: TextField(
-        controller: usernameController,
-        decoration: InputDecoration(
-          hintText: "Enter a username",
-          errorText: isValidated ? null : "Enter a valid username.",
+      content: Form(
+        key: formKey,
+        child: TextFormField(
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return "Valid username required";
+            }
+            return null;
+          },
+          controller: usernameController,
+          decoration: InputDecoration(
+            hintText: "Enter a username",
+          ),
         ),
       ),
       actions: [
