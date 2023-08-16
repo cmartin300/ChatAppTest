@@ -31,8 +31,8 @@ class _ChatPageState extends State<ChatPage> {
                 Expanded(
                   child: TextFormField(
                     decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                    ),
+                        border: OutlineInputBorder(),
+                        hintText: 'Enter text...'),
                   ),
                 ),
                 IconButton(
