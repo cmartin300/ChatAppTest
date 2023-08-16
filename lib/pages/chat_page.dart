@@ -32,7 +32,7 @@ class _ChatPageState extends State<ChatPage> {
                   child: TextFormField(
                     decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        hintText: 'Enter text...'),
+                        hintText: 'Enter text here...'),
                   ),
                 ),
                 IconButton(
