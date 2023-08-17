@@ -7,10 +7,12 @@ import 'package:flutter/material.dart';
 
 class AlertPopupFormField extends StatefulWidget {
   final String popupTitle;
+  final String userID;
 
   const AlertPopupFormField({
     super.key,
     required this.popupTitle,
+    required this.userID,
   });
 
   @override
@@ -38,9 +40,13 @@ class _AlertPopupFormFieldState extends State<AlertPopupFormField> {
     Widget enterButton = TextButton(
       onPressed: () {
         if (formKey.currentState!.validate()) {
+          String username = usernameController.text;
           Navigator.of(context).pop();
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => ChatPage()));
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => ChatPage(
+                    username: username,
+                    userID: widget.userID,
+                  )));
         }
       },
       child: Text('Enter'),

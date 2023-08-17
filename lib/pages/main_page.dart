@@ -2,6 +2,7 @@
 
 import 'package:chat_app/models/alert_popup.dart';
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -11,6 +12,7 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  var uuid = Uuid();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,8 +29,10 @@ class _MainPageState extends State<MainPage> {
               onPressed: () {
                 showDialog(
                   context: context,
-                  builder: (context) =>
-                      AlertPopupFormField(popupTitle: "Username"),
+                  builder: (context) => AlertPopupFormField(
+                    popupTitle: "Username",
+                    userID: uuid.v1(),
+                  ),
                 );
               },
               child: Text('Join chat group -->'),
