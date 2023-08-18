@@ -13,8 +13,10 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   var uuid = Uuid();
+
   @override
   Widget build(BuildContext context) {
+    var userID = uuid.v1();
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -31,7 +33,7 @@ class _MainPageState extends State<MainPage> {
                   context: context,
                   builder: (context) => AlertPopupFormField(
                     popupTitle: "Username",
-                    userID: uuid.v1(),
+                    userID: userID,
                   ),
                 );
               },

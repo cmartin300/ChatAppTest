@@ -38,20 +38,18 @@ class _ChatPageState extends State<ChatPage> {
     socket!.connect();
     socket!.onConnect(
       (_) {
-        print('Socket connection successful!');
         socket!.on(
           "serverMessage",
           (data) {
             if (data["userID"] != widget.userID) {
-              messageList.add(
-                MessageModel(
-                  message: data["message"],
-                  type: data["type"],
-                  sender: data["sender"],
-                ), // MessageModel
-              );
               setState(() {
-                messageList;
+                messageList.add(
+                  MessageModel(
+                    message: data["message"],
+                    type: data["type"],
+                    sender: data["sender"],
+                  ), // MessageModel
+                );
               });
             }
           },
@@ -82,8 +80,16 @@ class _ChatPageState extends State<ChatPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         elevation: 0,
         centerTitle: true,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios_new),
+          onPressed: () {
+            socket!.dispose();
+            Navigator.pop(context);
+          },
+        ),
         title: Text('Chat Group'),
       ),
       body: Column(
