@@ -3,6 +3,9 @@
 import 'package:chat_app/pages/main_page.dart';
 import 'package:flutter/material.dart';
 
+// TODO see about creating socket instance in main and pass it to pages that
+// need to have listeners/emiters on them.
+
 void main() {
   runApp(const MyApp());
 }
